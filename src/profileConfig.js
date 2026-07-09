@@ -7,6 +7,6 @@ export const PROFILE = {
   location: 'City, Country',
   bio: 'A short paragraph about who you are, what you focus on, and what you\u2019re looking for. Two to three sentences is plenty — this is the first thing people read.',
   openTo: 'Open to opportunities',
-  bannerUrl: '',
-  photoUrl: ''
+  bannerUrl: '/Banner.jpg',
+  photoUrl: '/Profile.jpg'
 };
