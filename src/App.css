@@ -75,12 +75,13 @@
 
 /* ---------- Section shell ---------- */
 
-/* FIX: Completely removed the old content-max limits. 
-   Sections and lines will now stretch flawlessly across the full frame. */
+/* FIX: Removes custom width locks, stretching elements and lines to fill the viewport width */
 .section {
-  width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   padding: 3.25rem 0;
   border-top: 1px dotted var(--line);
+  box-sizing: border-box;
 }
 
 .section:first-child,
@@ -360,6 +361,7 @@
   height: 44px;
   border-radius: 50%;
   
+  /* FIX: Using explicit flex centering on the SVG vector element removes standard font baseline drift */
   display: flex;
   align-items: center;
   justify-content: center;
