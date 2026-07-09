@@ -20,7 +20,8 @@
   z-index: 0;
 }
 
-/* The horizontal gradient fade blends the background banner safely on the left side */
+/* FIX: Made the gradient fade much narrower so it stays tucked 
+   neatly on the left side and doesn't spread over your banner photo */
 .page-banner::after {
   content: '';
   position: absolute;
@@ -28,10 +29,9 @@
   background: linear-gradient(
     90deg,
     var(--bg) 0%,
-    var(--bg) 14%,
-    color-mix(in srgb, var(--bg) 80%, transparent) 35%,
-    color-mix(in srgb, var(--bg) 30%, transparent) 60%,
-    transparent 100%
+    var(--bg) 8%,
+    color-mix(in srgb, var(--bg) 60%, transparent) 20%,
+    transparent 45%
   );
   pointer-events: none;
 }
@@ -70,12 +70,15 @@
   flex-grow: 1;
   margin-left: var(--sidebar-w);
   padding: 0 3.5rem 6rem;
-  max-width: calc(var(--content-max) + 7rem); /* Accommodates max width plus side padding */
+  max-width: calc(var(--content-max) + 7rem);
 }
 
 /* ---------- Section shell ---------- */
 
+/* FIX: Section lines now stretch across the full width of the container 
+   matching the rest of your layout grids neatly */
 .section {
+  width: 100%;
   max-width: var(--content-max);
   padding: 3.25rem 0;
   border-top: 1px dotted var(--line);
@@ -352,13 +355,15 @@
   height: 44px;
   border-radius: 50%;
   
-  display: inline-flex;
+  /* FIX: Forces mathematical structural layout centering so the character 
+     remains fixed on its central anchor and won't wobble out of place when spinning */
+  display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 0;
   line-height: 1;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
