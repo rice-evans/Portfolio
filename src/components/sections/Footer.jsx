@@ -8,14 +8,22 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <button type="button" className="footer__btn footer__btn--primary" onClick={handleShare}>
-        <Share2 size={16} strokeWidth={1.8} />
-        Share profile
-      </button>
-      <button type="button" className="footer__btn footer__btn--ghost" onClick={handleContact}>
-        <Mail size={16} strokeWidth={1.8} />
-        Contact me
-      </button>
+      {/* Container to group buttons neatly on the left side */}
+      <div className="footer__actions">
+        <button type="button" className="footer__btn footer__btn--primary" onClick={handleShare}>
+          <Share2 size={16} strokeWidth={1.8} />
+          Share profile
+        </button>
+        <button type="button" className="footer__btn footer__btn--ghost" onClick={handleContact}>
+          <Mail size={16} strokeWidth={1.8} />
+          Contact me
+        </button>
+      </div>
+
+      {/* Aligned copyright text blocks on the right side */}
+      <div className="footer__copyright">
+        Rhys Putra Evans, 2026
+      </div>
     </footer>
   );
 };
