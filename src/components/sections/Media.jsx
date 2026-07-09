@@ -8,7 +8,7 @@ const PREVIEW_PHOTOS = [
   { id: "3", img: "Gallery3.jpg" },
   { id: "4", img: "Gallery4.jpg" },
   { id: "5", img: "Gallery5.JPG" },
-  { id: "6", img: "Gallery6.HEIC" }, // This becomes the blurred backdrop
+  { id: "6", img: "Gallery6.jpg" }, // This becomes the blurred backdrop
 ];
 
 const MASONRY_ITEMS = [
@@ -17,7 +17,7 @@ const MASONRY_ITEMS = [
   { id: "m3", img: "Gallery3.jpg", url: "#", height: 500 },
   { id: "m4", img: "Gallery4.jpg", url: "#", height: 380 },
   { id: "m5", img: "Gallery5.jpg", url: "#", height: 550 },
-  { id: "m6", img: "Gallery6.HEIC", url: "#", height: 300 },
+  { id: "m6", img: "Gallery6.jpg", url: "#", height: 300 },
   { id: "m7", img: "Gallery7.jpeg", url: "#", height: 480 },
   { id: "m8", img: "Gallery8.JPG", url: "#", height: 340 },
   { id: "m9", img: "https://picsum.photos/id/1074/600/900?grayscale", url: "#", height: 460 },
