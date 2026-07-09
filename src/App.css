@@ -6,8 +6,6 @@
 
 /* ---------- Page + banner stacking ---------- */
 
-/* ---------- Page + banner stacking ---------- */
-
 .page {
   position: relative;
 }
@@ -22,8 +20,7 @@
   z-index: 0;
 }
 
-/* FIX: Moved gradient fade here so it ONLY applies on top of the banner photo,
-   leaving your sidebar text, profile pictures, and bios fully clean and untouched */
+/* The horizontal gradient fade blends the background banner safely on the left side */
 .page-banner::after {
   content: '';
   position: absolute;
@@ -47,7 +44,14 @@
   display: block;
 }
 
-/* ---------- Layout ---------- */
+/* ---------- Layout Structure ---------- */
+
+.layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
 
 .layout__sidebar {
   width: var(--sidebar-w);
@@ -57,12 +61,22 @@
   left: 0;
   height: 100vh;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+}
+
+.layout__content {
+  flex-grow: 1;
+  margin-left: var(--sidebar-w);
+  padding: 0 3.5rem 6rem;
+  max-width: calc(var(--content-max) + 7rem); /* Accommodates max width plus side padding */
 }
 
 /* ---------- Section shell ---------- */
 
 .section {
-  max-width: 100%;
+  max-width: var(--content-max);
   padding: 3.25rem 0;
   border-top: 1px dotted var(--line);
 }
@@ -264,7 +278,6 @@
   object-fit: cover;
 }
 
-/* ADDED: Styles for the 6th blurred "View more" tile */
 .media-tile--more {
   position: relative;
   cursor: pointer;
@@ -272,7 +285,7 @@
 
 .media-tile__blurred-img {
   filter: blur(5px) brightness(0.65);
-  transform: scale(1.06); /* Prevents blurred edge artifacts */
+  transform: scale(1.06);
   transition: filter 0.3s ease, transform 0.3s ease;
 }
 
@@ -309,7 +322,7 @@
   transform: scale(1.05);
 }
 
-/* ADDED: Fullscreen Modal Layout for the Masonry Stream */
+/* Fullscreen Modal Layout for the Masonry Stream */
 .masonry-modal {
   position: fixed;
   inset: 0;
@@ -339,14 +352,13 @@
   height: 44px;
   border-radius: 50%;
   
-  /* FIX: Forces perfect absolute flex-centering by neutralizing typography line baselines */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 0 4px 0; /* Tiny 4px offset balances out the native glyph structure of "×" */
-  line-height: 0;
-  font-size: 1.9rem;
+  padding: 0;
+  line-height: 1;
+  font-size: 1.6rem;
   
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -382,9 +394,8 @@
   justify-content: space-between;
   padding: 3.25rem 0 0;
   border-top: 1px dotted var(--line);
-  /* FIX: Forces the line to be full width like every other section row */
-  width: 100%;
-  max-width: none; 
+  max-width: var(--content-max);
+  width: 100%; 
 }
 
 .footer__actions {
@@ -398,8 +409,6 @@
   color: var(--ink-soft);
   font-weight: 400;
   white-space: nowrap;
-  /* Adds spacing padding right up to the matching edge threshold */
-  padding-right: 0.5rem; 
 }
 
 .footer__btn {
