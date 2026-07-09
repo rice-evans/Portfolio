@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
 import Masonry from '../Masonry';
 
 // Clean asset tracking for both views
@@ -37,7 +38,8 @@ const Media = () => {
   }, [isModalOpen]);
 
   return (
-    <div className="media-section">
+    // FIX: Using section class names ensures full width distribution 
+    <div className="section media-section">
       {/* Primary Landing Page Grid */}
       <div className="media-grid">
         {PREVIEW_PHOTOS.slice(0, 5).map(photo => (
@@ -64,12 +66,13 @@ const Media = () => {
 
       {/* Dynamic GSAP Masonry Portal Sheet */}
       <div className={`masonry-modal ${isModalOpen ? 'masonry-modal--open' : ''}`}>
+        {/* FIX: Now using the true SVG icon component instead of a text glyph */}
         <button 
           className="masonry-modal__close" 
           onClick={() => setIsModalOpen(false)}
           aria-label="Close Gallery"
         >
-          &times;
+          <X size={20} strokeWidth={2.5} />
         </button>
         <div className="masonry-modal__content">
           <h2 className="masonry-modal__title">Media Gallery</h2>
