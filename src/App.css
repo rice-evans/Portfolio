@@ -696,12 +696,16 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center; /* Forces the text content itself to center */
+  width: 100%; /* Spans full width to ensure text-align behaves correctly */
 }
 
 /* Float positioning stops the layout from expanding when text appears */
 .share-modal__link-box--centered .share-modal__tooltip {
   position: absolute;
   right: 1.25rem;
+  background: var(--bg); /* Matches background to mask text underneath if they overlap slightly */
+  padding-left: 0.5rem;
 }
 
 .share-modal__tooltip {
