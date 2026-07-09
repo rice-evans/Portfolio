@@ -8,7 +8,7 @@ const PREVIEW_PHOTOS = [
   { id: "3", img: "Gallery3.jpg" },
   { id: "4", img: "Gallery4.jpg" },
   { id: "5", img: "Gallery5.JPG" },
-  { id: "6", img: "Gallery6.jpg" }, // Blurred backdrop tile
+  { id: "6", img: "Gallery6.jpg" },
 ];
 
 const MASONRY_ITEMS = [
@@ -25,27 +25,44 @@ const MASONRY_ITEMS = [
 
 const Media = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeLightboxIndex, setActiveLightboxIndex] = useState(null);
+  
+  // Tracks both the index AND which dataset ('preview' or 'masonry') is currently active
+  const [lightbox, setLightbox] = useState({ index: null, source: null });
 
-  // Lock body scroll if either the Masonry modal or Lightbox carousel is active
   useEffect(() => {
-    if (isModalOpen || activeLightboxIndex !== null) {
+    if (isModalOpen || lightbox.index !== null) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
     return () => { document.body.style.overflow = ''; };
-  }, [isModalOpen, activeLightboxIndex]);
+  }, [isModalOpen, lightbox.index]);
 
-  // Carousel navigation handlers
+  // Determine current active list and boundaries based on active source
+  const currentArray = lightbox.source === 'masonry' ? MASONRY_ITEMS : PREVIEW_PHOTOS;
+  const maxIndex = lightbox.source === 'masonry' ? 8 : 4; // 9 items vs 5 items
+
   const handlePrev = (e) => {
     e.stopPropagation();
-    setActiveLightboxIndex((prev) => (prev === 0 ? 4 : prev - 1));
+    setLightbox((prev) => ({
+      ...prev,
+      index: prev.index === 0 ? maxIndex : prev.index - 1
+    }));
   };
 
   const handleNext = (e) => {
     e.stopPropagation();
-    setActiveLightboxIndex((prev) => (prev === 4 ? 0 : prev + 1));
+    setLightbox((prev) => ({
+      ...prev,
+      index: prev.index === maxIndex ? 0 : prev.index + 1
+    }));
+  };
+
+  // Intercepting click layouts inside custom external components 
+  // If your Masonry item wrapper triggers default links, this overrides it cleanly
+  const handleMasonryItemClick = (index, e) => {
+    if (e) e.preventDefault();
+    setLightbox({ index, source: 'masonry' });
   };
 
   return (
@@ -56,13 +73,13 @@ const Media = () => {
           <div 
             key={photo.id} 
             className="media-tile media-tile--clickable"
-            onClick={() => setActiveLightboxIndex(index)}
+            onClick={() => setLightbox({ index, source: 'preview' })}
           >
             <img src={photo.img} alt={`Portfolio Media ${photo.id}`} />
           </div>
         ))}
 
-        {/* 6th Interactive Tile (Opens Masonry Modal) */}
+        {/* 6th Interactive Component Tile */}
         <div 
           className="media-tile media-tile--more" 
           onClick={() => setIsModalOpen(true)}
@@ -78,41 +95,33 @@ const Media = () => {
         </div>
       </div>
 
-      {/* ---------- LIGHTBOX CAROUSEL OVERLAY ---------- */}
-      {activeLightboxIndex !== null && (
+      {/* ---------- UNIFIED LIGHTBOX OVERLAY ---------- */}
+      {lightbox.index !== null && (
         <div 
           className="lightbox" 
-          onClick={() => setActiveLightboxIndex(null)}
+          onClick={() => setLightbox({ index: null, source: null })}
         >
           <button 
             className="lightbox__close" 
-            onClick={() => setActiveLightboxIndex(null)}
+            onClick={() => setLightbox({ index: null, source: null })}
             aria-label="Close Lightbox"
           >
             <X size={20} strokeWidth={2.5} />
           </button>
 
-          <button 
-            className="lightbox__arrow lightbox__arrow--left" 
-            onClick={handlePrev}
-            aria-label="Previous Image"
-          >
+          <button className="lightbox__arrow lightbox__arrow--left" onClick={handlePrev}>
             <ChevronLeft size={28} />
           </button>
 
           <div className="lightbox__stage" onClick={(e) => e.stopPropagation()}>
             <img 
-              src={PREVIEW_PHOTOS[activeLightboxIndex].img} 
+              src={currentArray[lightbox.index].img} 
               alt="Enlarged gallery view" 
               className="lightbox__img"
             />
           </div>
 
-          <button 
-            className="lightbox__arrow lightbox__arrow--right" 
-            onClick={handleNext}
-            aria-label="Next Image"
-          >
+          <button className="lightbox__arrow lightbox__arrow--right" onClick={handleNext}>
             <ChevronRight size={28} />
           </button>
         </div>
@@ -127,11 +136,16 @@ const Media = () => {
         >
           <X size={20} strokeWidth={2.5} />
         </button>
+        
         <div className="masonry-modal__content">
           <h2 className="masonry-modal__title">Media Gallery</h2>
           {isModalOpen && (
             <Masonry
-              items={MASONRY_ITEMS}
+              /* Pass mapped array where clicking items redirects into our Lightbox handler */
+              items={MASONRY_ITEMS.map((item, idx) => ({
+                ...item,
+                onClick: (e) => handleMasonryItemClick(idx, e)
+              }))}
               ease="power3.out"
               duration={0.6}
               stagger={0.05}
