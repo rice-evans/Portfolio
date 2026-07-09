@@ -1,6 +1,5 @@
 :root {
   --sidebar-w: 240px;
-  --content-max: 720px;
   --banner-h: 260px;
 }
 
@@ -20,7 +19,7 @@
   z-index: 0;
 }
 
-/* FIX: Tucked gradient fade closely to the left sidebar edge */
+/* Tucked gradient fade closely to the left sidebar edge */
 .page-banner::after {
   content: '';
   position: absolute;
@@ -69,17 +68,17 @@
   flex-grow: 1;
   margin-left: var(--sidebar-w);
   padding: 0 3.5rem 6rem;
-  max-width: calc(var(--content-max) + 7rem);
+  /* FIX: Spans across the full available content page width layout cleanly */
   width: 100%;
+  max-width: 100%;
 }
 
 /* ---------- Section shell ---------- */
 
-/* FIX: Removed the restrictive max-width block from sections so that lines 
-   and content dynamically adapt to the full structural width of the page container */
+/* FIX: Completely removed the old content-max limits. 
+   Sections and lines will now stretch flawlessly across the full frame. */
 .section {
-  width: 100% !important;
-  max-width: 100% !important;
+  width: 100%;
   padding: 3.25rem 0;
   border-top: 1px dotted var(--line);
 }
@@ -189,7 +188,7 @@
   font-size: 0.95rem;
   line-height: 1.65;
   color: var(--ink-soft);
-  max-width: 54ch;
+  max-width: 65ch;
   margin: 0;
 }
 
@@ -202,12 +201,14 @@
   display: flex;
   flex-direction: column;
   gap: 1.9rem;
+  width: 100%;
 }
 
 .timeline__entry {
   display: grid;
   grid-template-columns: 118px 1fr;
   gap: 1.5rem;
+  width: 100%;
 }
 
 .timeline__when {
@@ -261,6 +262,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.85rem;
+  width: 100%;
 }
 
 .media-tile {
@@ -343,6 +345,9 @@
   visibility: visible;
 }
 
+/* FIX: Fully updated close button properties built around modern vector graphic icons.
+   Since Lucide vectors generate real physical width dimensions, this centers perfectly
+   and spins flawlessly inside its circular node wrapper layout. */
 .masonry-modal__close {
   position: fixed;
   top: 1.5rem;
@@ -355,26 +360,26 @@
   height: 44px;
   border-radius: 50%;
   
-  /* FIX: Forces strict vector centering grid rules to cancel native text baseline shifting. 
-     This ensures the X sits perfectly dead-center and stays anchored when spinning. */
-  display: grid;
-  place-items: center;
-  align-content: center;
+  display: flex;
+  align-items: center;
   justify-content: center;
   padding: 0;
-  line-height: 0.5;
-  font-size: 1.8rem;
+  margin: 0;
   
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transform-origin: center center;
-  transition: background 0.2s, color 0.2s, transform 0.2s ease-in-out;
+  transition: background 0.2s, color 0.2s, transform 0.25s ease-in-out;
 }
 
 .masonry-modal__close:hover {
   background: var(--accent-soft);
   color: var(--accent);
   transform: rotate(90deg);
+}
+
+.masonry-modal__close svg {
+  display: block;
 }
 
 .masonry-modal__content {
