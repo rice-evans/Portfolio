@@ -3,23 +3,23 @@ import Masonry from '../Masonry';
 
 // Clean asset tracking for both views
 const PREVIEW_PHOTOS = [
-  { id: "1", img: "https://picsum.photos/id/1015/500/500" },
-  { id: "2", img: "https://picsum.photos/id/1011/500/500" },
-  { id: "3", img: "https://picsum.photos/id/1020/500/500" },
-  { id: "4", img: "https://picsum.photos/id/1025/500/500" },
-  { id: "5", img: "https://picsum.photos/id/1043/500/500" },
-  { id: "6", img: "https://picsum.photos/id/1050/500/500" }, // This becomes the blurred backdrop
+  { id: "1", img: "/Gallery1.jpeg" },
+  { id: "2", img: "/Gallery2.jpg" },
+  { id: "3", img: "Gallery3.jpg" },
+  { id: "4", img: "Gallery4.jpg" },
+  { id: "5", img: "Gallery5.jpg" },
+  { id: "6", img: "Gallery6.HEIC" }, // This becomes the blurred backdrop
 ];
 
 const MASONRY_ITEMS = [
-  { id: "m1", img: "https://picsum.photos/id/1015/600/900?grayscale", url: "#", height: 450 },
-  { id: "m2", img: "https://picsum.photos/id/1011/600/750?grayscale", url: "#", height: 320 },
-  { id: "m3", img: "https://picsum.photos/id/1020/600/800?grayscale", url: "#", height: 500 },
-  { id: "m4", img: "https://picsum.photos/id/1025/600/700?grayscale", url: "#", height: 380 },
-  { id: "m5", img: "https://picsum.photos/id/1043/600/950?grayscale", url: "#", height: 550 },
-  { id: "m6", img: "https://picsum.photos/id/1050/600/650?grayscale", url: "#", height: 300 },
-  { id: "m7", img: "https://picsum.photos/id/1062/600/850?grayscale", url: "#", height: 480 },
-  { id: "m8", img: "https://picsum.photos/id/1021/600/720?grayscale", url: "#", height: 340 },
+  { id: "m1", img: "/Gallery1.jpeg", url: "#", height: 450 },
+  { id: "m2", img: "/Gallery2.jpg", url: "#", height: 320 },
+  { id: "m3", img: "Gallery3.jpg", url: "#", height: 500 },
+  { id: "m4", img: "Gallery4.jpg", url: "#", height: 380 },
+  { id: "m5", img: "Gallery5.jpg", url: "#", height: 550 },
+  { id: "m6", img: "Gallery6.HEIC", url: "#", height: 300 },
+  { id: "m7", img: "Gallery7.jpeg", url: "#", height: 480 },
+  { id: "m8", img: "Gallery8.JPG", url: "#", height: 340 },
   { id: "m9", img: "https://picsum.photos/id/1074/600/900?grayscale", url: "#", height: 460 },
 ];
 
