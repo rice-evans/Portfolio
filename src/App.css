@@ -47,8 +47,7 @@
   z-index: 2;
 }
 
-/* Soft fade so the sidebar blends into the banner instead of meeting it at a hard edge —
-   opaque near the nav labels, transparent as it bleeds right into the photo/art. */
+/* Soft fade so the sidebar blends into the banner instead of meeting it at a hard edge */
 .layout__sidebar::before {
   content: '';
   position: absolute;
@@ -75,15 +74,13 @@
 .layout__content {
   margin-left: var(--sidebar-w);
   flex: 1;
-  /* CHANGED: Increased left padding to 11rem to shift text right out of the sidebar fade zone */
-  padding: 0 4rem 6rem 11rem; 
-  /* CHANGED: Removed max-width restriction to allow full-width extension */
+  /* CHANGED: Tighter left padding to keep sections cozy but out of the fade zone */
+  padding: 0 4rem 6rem 6rem; 
 }
 
 /* ---------- Section shell ---------- */
 
 .section {
-  /* CHANGED: Expanded width to maximum space available */
   max-width: 100%;
   padding: 3.25rem 0;
   border-top: 1px dotted var(--line);
@@ -133,7 +130,6 @@
 
 .hero__photo {
   position: relative;
-  /* CHANGED: Enlarged profile photo dimensions from 108px to 160px */
   width: 160px;
   height: 160px;
   border-radius: 50%;
@@ -143,10 +139,9 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 2.2rem; /* Scaled up fallback initials font size */
+  font-size: 2.2rem;
   border: 4px solid var(--bg);
   box-shadow: 0 0 0 1px var(--line);
-  /* CHANGED: Half of 160px is 80px, keeping the perfect banner line overlap intact */
   margin-top: -80px;
   margin-bottom: 1.5rem;
   overflow: hidden;
@@ -288,6 +283,109 @@
   object-fit: cover;
 }
 
+/* ADDED: Styles for the 6th blurred "View more" tile */
+.media-tile--more {
+  position: relative;
+  cursor: pointer;
+}
+
+.media-tile__blurred-img {
+  filter: blur(5px) brightness(0.65);
+  transform: scale(1.06); /* Prevents blurred edge artifacts */
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.media-tile--more:hover .media-tile__blurred-img {
+  filter: blur(3px) brightness(0.5);
+  transform: scale(1.1);
+}
+
+.media-tile__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.media-tile__overlay span {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 0.5rem 1.1rem;
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.media-tile--more:hover .media-tile__overlay span {
+  background: var(--accent);
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+/* ADDED: Fullscreen Modal Layout for the Masonry Stream */
+.masonry-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: var(--bg);
+  overflow-y: auto;
+  padding: 5rem 2rem 4rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.masonry-modal--open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.masonry-modal__close {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 2001;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.masonry-modal__close:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+  transform: rotate(90deg);
+}
+
+.masonry-modal__content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.masonry-modal__title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 0 2.5rem;
+  color: var(--ink);
+}
+
 /* ---------- Footer ---------- */
 
 .footer {
@@ -295,7 +393,6 @@
   gap: 0.9rem;
   padding: 3.25rem 0 0;
   border-top: 1px dotted var(--line);
-  /* CHANGED: Expanded footer to full width matching the sections */
   max-width: 100%;
 }
 
@@ -357,7 +454,6 @@
   }
 
   .hero__photo {
-    /* CHANGED: Scaled up mobile image slightly to stay proportional */
     width: 110px;
     height: 110px;
     margin-top: -55px;
