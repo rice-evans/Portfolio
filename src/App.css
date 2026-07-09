@@ -55,12 +55,14 @@
   left: 0;
   width: 170%;
   height: var(--banner-h);
+  /* FIX: Spread color percentages globally to wash away the hard vertical edge line */
   background: linear-gradient(
-    120deg,
+    90deg,
     var(--bg) 0%,
-    var(--bg) 40%,
-    color-mix(in srgb, var(--bg) 55%, transparent) 62%,
-    transparent 88%
+    var(--bg) 20%,
+    color-mix(in srgb, var(--bg) 70%, transparent) 55%,
+    color-mix(in srgb, var(--bg) 30%, transparent) 80%,
+    transparent 100%
   );
   pointer-events: none;
 }
