@@ -16,10 +16,10 @@ const MASONRY_ITEMS = [
   { id: "m2", img: "/Gallery2.jpg", url: "#", height: 320 },
   { id: "m3", img: "Gallery3.jpg", url: "#", height: 500 },
   { id: "m4", img: "Gallery4.jpg", url: "#", height: 380 },
-  { id: "m5", img: "Gallery5.jpg", url: "#", height: 550 },
+  { id: "m5", img: "Gallery5.JPG", url: "#", height: 550 },
   { id: "m6", img: "Gallery6.jpg", url: "#", height: 300 },
   { id: "m7", img: "Gallery7.jpeg", url: "#", height: 480 },
-  { id: "m8", img: "Gallery8.JPG", url: "#", height: 340 },
+  { id: "m8", img: "Gallery8.jpg", url: "#", height: 340 },
   { id: "m9", img: "https://picsum.photos/id/1074/600/900?grayscale", url: "#", height: 460 },
 ];
 
