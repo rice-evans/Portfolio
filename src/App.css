@@ -359,18 +359,26 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
+  
+  /* FIX: Perfect element alignment centering layout */
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  line-height: 1;
+  font-size: 1.6rem;
+  
   cursor: pointer;
-  font-size: 1.4rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: background 0.2s, color 0.2s, transform 0.2s;
+  /* FIX: Pivot rotation strictly from the absolute dead center of the element node */
+  transform-origin: center center;
+  transition: background 0.2s, color 0.2s, transform 0.2s ease-in-out;
 }
 
 .masonry-modal__close:hover {
   background: var(--accent-soft);
   color: var(--accent);
+  /* FIX: Rotate cleanly around the perfect middle coordinates */
   transform: rotate(90deg);
 }
 
