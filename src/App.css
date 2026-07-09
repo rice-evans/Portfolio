@@ -6,6 +6,8 @@
 
 /* ---------- Page + banner stacking ---------- */
 
+/* ---------- Page + banner stacking ---------- */
+
 .page {
   position: relative;
 }
@@ -20,6 +22,23 @@
   z-index: 0;
 }
 
+/* FIX: Moved gradient fade here so it ONLY applies on top of the banner photo,
+   leaving your sidebar text, profile pictures, and bios fully clean and untouched */
+.page-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--bg) 0%,
+    var(--bg) 14%,
+    color-mix(in srgb, var(--bg) 80%, transparent) 35%,
+    color-mix(in srgb, var(--bg) 30%, transparent) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
 .page-banner svg,
 .page-banner img {
   width: 100%;
@@ -30,13 +49,6 @@
 
 /* ---------- Layout ---------- */
 
-.layout {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  min-height: 100vh;
-}
-
 .layout__sidebar {
   width: var(--sidebar-w);
   flex-shrink: 0;
@@ -45,39 +57,6 @@
   left: 0;
   height: 100vh;
   z-index: 2;
-}
-
-/* Soft fade so the sidebar blends into the banner instead of meeting it at a hard edge */
-.layout__sidebar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 170%;
-  height: var(--banner-h);
-  /* FIX: Spread color percentages globally to wash away the hard vertical edge line */
-  background: linear-gradient(
-    90deg,
-    var(--bg) 0%,
-    var(--bg) 20%,
-    color-mix(in srgb, var(--bg) 70%, transparent) 55%,
-    color-mix(in srgb, var(--bg) 30%, transparent) 80%,
-    transparent 100%
-  );
-  pointer-events: none;
-}
-
-.layout__sidebar-inner {
-  position: relative;
-  height: 100%;
-  padding: 2.75rem 0 3rem 2.75rem;
-}
-
-.layout__content {
-  margin-left: var(--sidebar-w);
-  flex: 1;
-  /* CHANGED: Tighter left padding to keep sections cozy but out of the fade zone */
-  padding: 0 4rem 6rem 6rem; 
 }
 
 /* ---------- Section shell ---------- */
@@ -360,17 +339,17 @@
   height: 44px;
   border-radius: 50%;
   
-  /* FIX: Perfect element alignment centering layout */
-  display: flex;
+  /* FIX: Forces perfect absolute flex-centering by neutralizing typography line baselines */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  line-height: 1;
-  font-size: 1.6rem;
+  text-align: center;
+  padding: 0 0 4px 0; /* Tiny 4px offset balances out the native glyph structure of "×" */
+  line-height: 0;
+  font-size: 1.9rem;
   
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  /* FIX: Pivot rotation strictly from the absolute dead center of the element node */
   transform-origin: center center;
   transition: background 0.2s, color 0.2s, transform 0.2s ease-in-out;
 }
@@ -378,7 +357,6 @@
 .masonry-modal__close:hover {
   background: var(--accent-soft);
   color: var(--accent);
-  /* FIX: Rotate cleanly around the perfect middle coordinates */
   transform: rotate(90deg);
 }
 
@@ -400,12 +378,13 @@
 
 .footer {
   display: flex;
-  align-items: center;         /* Aligns text baseline perfectly with buttons */
-  justify-content: space-between; /* Pushes buttons to the left and copyright to the hard right */
+  align-items: center;
+  justify-content: space-between;
   padding: 3.25rem 0 0;
   border-top: 1px dotted var(--line);
-  max-width: var(--content-max); /* Ensures text ends exactly where the dashed line stops */
+  /* FIX: Forces the line to be full width like every other section row */
   width: 100%;
+  max-width: none; 
 }
 
 .footer__actions {
@@ -419,6 +398,8 @@
   color: var(--ink-soft);
   font-weight: 400;
   white-space: nowrap;
+  /* Adds spacing padding right up to the matching edge threshold */
+  padding-right: 0.5rem; 
 }
 
 .footer__btn {
