@@ -7,7 +7,7 @@ const PREVIEW_PHOTOS = [
   { id: "2", img: "/Gallery2.jpg" },
   { id: "3", img: "Gallery3.jpg" },
   { id: "4", img: "Gallery4.jpg" },
-  { id: "5", img: "Gallery5.jpg" },
+  { id: "5", img: "Gallery5.JPG" },
   { id: "6", img: "Gallery6.HEIC" }, // This becomes the blurred backdrop
 ];
 
