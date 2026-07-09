@@ -1,0 +1,369 @@
+:root {
+  --sidebar-w: 240px;
+  --content-max: 720px;
+  --banner-h: 260px;
+}
+
+/* ---------- Page + banner stacking ---------- */
+
+.page {
+  position: relative;
+}
+
+.page-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--banner-h);
+  overflow: hidden;
+  z-index: 0;
+}
+
+.page-banner svg,
+.page-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- Layout ---------- */
+
+.layout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+.layout__sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 2;
+}
+
+/* Soft fade so the sidebar blends into the banner instead of meeting it at a hard edge —
+   opaque near the nav labels, transparent as it bleeds right into the photo/art. */
+.layout__sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 170%;
+  height: var(--banner-h);
+  background: linear-gradient(
+    120deg,
+    var(--bg) 0%,
+    var(--bg) 40%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 62%,
+    transparent 88%
+  );
+  pointer-events: none;
+}
+
+.layout__sidebar-inner {
+  position: relative;
+  height: 100%;
+  padding: 2.75rem 0 3rem 2.75rem;
+}
+
+.layout__content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 0 4rem 6rem;
+  max-width: calc(var(--content-max) + 8rem);
+}
+
+/* ---------- Section shell ---------- */
+
+.section {
+  max-width: var(--content-max);
+  padding: 3.25rem 0;
+  border-top: 1px dotted var(--line);
+}
+
+.section:first-child,
+.section--flush {
+  border-top: none;
+}
+
+.section--hero {
+  padding-top: var(--banner-h);
+  padding-bottom: 3.25rem;
+}
+
+.section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.section__eyebrow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.section__eyebrow-index {
+  color: var(--accent);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 0 0 1.75rem;
+  color: var(--ink);
+}
+
+/* ---------- Hero ---------- */
+
+.hero__photo {
+  position: relative;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  border: 4px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--line);
+  margin-top: -54px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.hero__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__name {
+  font-family: var(--font-display);
+  font-size: 2.15rem;
+  font-weight: 500;
+  margin: 0 0 0.3rem;
+  line-height: 1.15;
+}
+
+.hero__headline {
+  font-size: 1.02rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+}
+
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin-bottom: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.hero__meta-item--badge {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.hero__meta-dot {
+  color: var(--line);
+}
+
+.hero__bio {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 54ch;
+  margin: 0;
+}
+
+/* ---------- Timeline (Experience / Education / Events / Certificates) ---------- */
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.9rem;
+}
+
+.timeline__entry {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 1.5rem;
+}
+
+.timeline__when {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  padding-top: 0.2rem;
+}
+
+.timeline__title {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 500;
+  margin: 0 0 0.2rem;
+  color: var(--ink);
+}
+
+.timeline__subtitle {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.5rem;
+}
+
+.timeline__loc {
+  color: var(--ink-faint);
+}
+
+.timeline__note {
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+.timeline__points {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.timeline__points li {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* ---------- Media grid ---------- */
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+}
+
+.media-tile {
+  aspect-ratio: 1;
+  border: 1px dotted var(--line);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-faint);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.media-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  display: flex;
+  gap: 0.9rem;
+  padding: 3.25rem 0 0;
+  border-top: 1px dotted var(--line);
+  max-width: var(--content-max);
+}
+
+.footer__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 100px;
+  padding: 0.7rem 1.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.footer__btn--primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.footer__btn--primary:hover {
+  background: var(--accent-hover);
+}
+
+.footer__btn--ghost {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.footer__btn--ghost:hover {
+  background: var(--accent-soft);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  :root {
+    --banner-h: 150px;
+  }
+
+  .layout {
+    flex-direction: column;
+  }
+
+  /* Sidebar nav is desktop-only — mobile is a single scrollable column. */
+  .layout__sidebar {
+    display: none;
+  }
+
+  .layout__content {
+    margin-left: 0;
+    padding: 0 1.5rem 4rem;
+    max-width: 100%;
+  }
+
+  .section--hero {
+    padding-top: calc(var(--banner-h) + 1rem);
+  }
+
+  .hero__photo {
+    width: 84px;
+    height: 84px;
+    margin-top: -42px;
+  }
+
+  .timeline__entry {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .media-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
