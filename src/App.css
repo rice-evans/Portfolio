@@ -618,11 +618,11 @@
 .share-modal {
   position: relative;
   background: var(--surface);
-  border: 1px solid var(--line);
+  border: 1px dotted var(--line); /* Styled to match site dotting style */
   border-radius: 12px;
   width: 100%;
-  max-width: 420px;
-  padding: 2rem;
+  max-width: 540px; /* Widened container to comfortably fit layout paths */
+  padding: 2.2rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
   animation: scaleUpImg 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -659,53 +659,48 @@
   color: var(--ink);
 }
 
-/* Micro-shrinking Full-width Link Box Wrapper Component Layout */
+/* Micro-shrinking Full-width Link Box Wrapper */
 .share-modal__link-box {
   position: relative;
   background: var(--bg);
-  border: 1px solid var(--line);
+  border: 1px dotted var(--line); /* Dotted border style applied */
   border-radius: 8px;
-  padding: 0.85rem 1rem;
+  padding: 0.95rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
   overflow: hidden;
+  gap: 1rem;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .share-modal__link-box:hover {
-  transform: scale(0.97); /* Becomes slightly smaller on hover */
+  transform: scale(0.97); /* Shrinking physics applied */
   border-color: var(--accent);
 }
 
 .share-modal__link-box--copied {
-  border-color: #10b981 !important; /* Changes to solid green upon successful clip copy */
+  border-style: dotted !important;
+  border-color: #10b981 !important; /* Green alert border style */
 }
 
 .share-modal__url {
-  font-size: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
   color: var(--ink-soft);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 70%;
+  flex-grow: 1; /* Allows the text nodes to scale full-width comfortably */
 }
 
 .share-modal__tooltip {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--ink-faint);
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.share-modal__link-box:hover .share-modal__tooltip {
-  color: var(--accent);
-}
-
-.share-modal__link-box--copied .share-modal__tooltip {
-  color: #10b981 !important;
+  color: #10b981;
+  font-weight: 600;
+  animation: fadeInLightbox 0.15s ease-out;
 }
 
 .share-modal__label {
@@ -729,15 +724,15 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 1px solid var(--line);
+  border: 1px dotted var(--line); /* Dotted border layout matching the main content grid */
   background: var(--surface);
   color: var(--ink-soft);
   text-decoration: none;
-  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s ease;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s ease;
 }
 
 .share-modal__app-btn:hover {
-  transform: translateY(-2px);
+  transform: scale(0.97); /* Removed TranslateY lift; buttons now adopt identical shrinking physics */
 }
 
 .share-modal__app-btn--gmail:hover {
