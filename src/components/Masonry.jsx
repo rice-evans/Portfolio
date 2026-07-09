@@ -168,6 +168,7 @@ const Masonry = ({
     hasMounted.current = true;
   }, [grid, imagesReady, stagger, animateFrom, blurToFocus, duration, ease]);
 
+  // FIX: Isolated and closed handleMouseEnter correctly
   const handleMouseEnter = (e, item) => {
     const element = e.currentTarget;
     const selector = `[data-key="${item.id}"]`;
@@ -180,16 +181,6 @@ const Masonry = ({
       });
     }
 
-  const handleClick = (e, item) => {
-    // FIX: If our custom onClick lightbox handler exists, trigger it. 
-    // Otherwise, fall back to opening the item's custom URL link.
-    if (item.onClick) {
-      item.onClick(e);
-    } else if (item.url && item.url !== '#') {
-      window.open(item.url, '_blank', 'noopener');
-    }
-  };
-
     if (colorShiftOnHover) {
       const overlay = element.querySelector('.color-overlay');
       if (overlay) {
@@ -198,6 +189,15 @@ const Masonry = ({
           duration: 0.3
         });
       }
+    }
+  };
+
+  // FIX: Placed handleClick outside of mouse handlers so it fires perfectly
+  const handleClick = (e, item) => {
+    if (item.onClick) {
+      item.onClick(e);
+    } else if (item.url && item.url !== '#') {
+      window.open(item.url, '_blank', 'noopener');
     }
   };
 
@@ -236,7 +236,6 @@ const Masonry = ({
             key={item.id}
             data-key={item.id}
             className="item-wrapper"
-            /* FIX: Updated layout wrapper click handling */
             onClick={e => handleClick(e, item)}
             onMouseEnter={e => handleMouseEnter(e, item)}
             onMouseLeave={e => handleMouseLeave(e, item)}
