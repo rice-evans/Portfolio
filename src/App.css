@@ -20,8 +20,7 @@
   z-index: 0;
 }
 
-/* FIX: Made the gradient fade much narrower so it stays tucked 
-   neatly on the left side and doesn't spread over your banner photo */
+/* FIX: Tucked gradient fade closely to the left sidebar edge */
 .page-banner::after {
   content: '';
   position: absolute;
@@ -71,15 +70,16 @@
   margin-left: var(--sidebar-w);
   padding: 0 3.5rem 6rem;
   max-width: calc(var(--content-max) + 7rem);
+  width: 100%;
 }
 
 /* ---------- Section shell ---------- */
 
-/* FIX: Section lines now stretch across the full width of the container 
-   matching the rest of your layout grids neatly */
+/* FIX: Removed the restrictive max-width block from sections so that lines 
+   and content dynamically adapt to the full structural width of the page container */
 .section {
-  width: 100%;
-  max-width: var(--content-max);
+  width: 100% !important;
+  max-width: 100% !important;
   padding: 3.25rem 0;
   border-top: 1px dotted var(--line);
 }
@@ -355,15 +355,15 @@
   height: 44px;
   border-radius: 50%;
   
-  /* FIX: Forces mathematical structural layout centering so the character 
-     remains fixed on its central anchor and won't wobble out of place when spinning */
-  display: flex;
-  align-items: center;
+  /* FIX: Forces strict vector centering grid rules to cancel native text baseline shifting. 
+     This ensures the X sits perfectly dead-center and stays anchored when spinning. */
+  display: grid;
+  place-items: center;
+  align-content: center;
   justify-content: center;
-  text-align: center;
   padding: 0;
-  line-height: 1;
-  font-size: 1.7rem;
+  line-height: 0.5;
+  font-size: 1.8rem;
   
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -399,7 +399,6 @@
   justify-content: space-between;
   padding: 3.25rem 0 0;
   border-top: 1px dotted var(--line);
-  max-width: var(--content-max);
   width: 100%; 
 }
 
