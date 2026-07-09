@@ -117,7 +117,6 @@ const Masonry = ({
     });
   }, [columns, items, width]);
 
-  // FIX: Dynamic peak height evaluation script so masonry container tracks dimensions perfectly
   const computedContainerHeight = useMemo(() => {
     if (grid.length === 0) return 0;
     return Math.max(...grid.map(item => item.y + item.h));
@@ -181,6 +180,16 @@ const Masonry = ({
       });
     }
 
+  const handleClick = (e, item) => {
+    // FIX: If our custom onClick lightbox handler exists, trigger it. 
+    // Otherwise, fall back to opening the item's custom URL link.
+    if (item.onClick) {
+      item.onClick(e);
+    } else if (item.url && item.url !== '#') {
+      window.open(item.url, '_blank', 'noopener');
+    }
+  };
+
     if (colorShiftOnHover) {
       const overlay = element.querySelector('.color-overlay');
       if (overlay) {
@@ -227,9 +236,11 @@ const Masonry = ({
             key={item.id}
             data-key={item.id}
             className="item-wrapper"
-            onClick={() => window.open(item.url, '_blank', 'noopener')}
+            /* FIX: Updated layout wrapper click handling */
+            onClick={e => handleClick(e, item)}
             onMouseEnter={e => handleMouseEnter(e, item)}
             onMouseLeave={e => handleMouseLeave(e, item)}
+            style={{ cursor: 'pointer' }}
           >
             <div className="item-img" style={{ backgroundImage: `url(${item.img})` }}>
               {colorShiftOnHover && (
